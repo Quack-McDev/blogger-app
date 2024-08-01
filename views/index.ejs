@@ -1,0 +1,46 @@
+<!--Todo:
+Code partials header and footer
+Create blog main page (For main viewing)
+    -use for loop to create divs that contain the blog posts
+Create blog post creation page
+Create blog editing page
+Create navbar for header
+Create css styling for entire blog
+Create footer to end page-->
+<%-include("partials/header.ejs")%>
+<a class="btn btn-primary" id="new-post" href=/new-post>+</a>
+
+<div class="container text-center header-container">
+    <div class="row justify-content-center" id="header-space">
+        <div id="header-stripe"></div>
+        <div id="heading-wrapper" class="col-4"><h1>BloggerApp</h1></div>
+    </div>
+</div>
+<% if(locals.numOfPostsToRender){%>
+    <% for(let i = 0; i < numOfPostsToRender; i++){%>
+        <div class = "container text-center post-container" name = <%=i%>>
+            <div class="row justify-content-center">
+                <div class="blog-post">
+                <p class="post-content"><%=postContent[i]%></p>
+                    <div class="row row-cols-2 justify-content-end post-options">
+                        <div class="col-xxl-2 col-md-3 col-sm-6">
+                            <form method="get" action="/edit-post">
+                                <input type="hidden" value=<%=i%> name="postName" readonly>
+                                <input class="btn btn-primary edit-post-btn" type="submit" value = "Edit Post">
+                            </form>
+                        </div>
+                        <div class="col-xxl-2 col-md-3 col-sm-6">
+                            <button class="delete btn btn-danger" value="<%=i%>" name="deleteThis">Delete Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%}%>
+    <%} else{ %>
+        <div class="container text-center">
+            <h2 class="display-2">Looks like there's nothing to display :/</h2>
+            <p class="display-6">Why not try <a class="btn btn-primary" href="/new-post">creating a new post</a>?</p>
+        </div>
+    <%}%>
+<%-include("partials/footer.ejs")%>

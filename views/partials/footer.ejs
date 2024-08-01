@@ -1,0 +1,41 @@
+            
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            <script>
+                let currentScrollPos = $(document).scrollTop();
+                const newPostIcon = $("#new-post");
+                $(".delete").off("click").click(function sendDeletes(data){
+                    const postToDelete = data.currentTarget.value;
+                    console.log("Sending request to delete post...")
+                    jQuery.ajax({
+                        url: "/",
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        method: "DELETE",
+                        data: {postNumber: postToDelete},
+                        success: function (returnData, status, jqXHR){
+                            location.reload();
+                            console.log("File deleted");
+                        }
+                    });
+                });
+                //Triggers animation for scroll button, kinda jank and messy but gets the job done
+                $(document).scroll(function (){
+                    if ($(document).scrollTop() > currentScrollPos){
+                        newPostIcon.toggleClass("show-element", false);
+                        newPostIcon.toggleClass("hide-element", true);
+                        newPostIcon.on("animationend", function (){
+                            $(this).toggleClass("hide",true);
+                        });
+                        currentScrollPos = $(document).scrollTop();
+                    }else{
+                        newPostIcon.off();
+                        newPostIcon.toggleClass("hide-element", false)
+                        newPostIcon.toggleClass("hide", false);
+                        newPostIcon.toggleClass("show-element", true);
+                        currentScrollPos = $(document).scrollTop();
+                    }
+                });
+            </script>
+        </body>
+    </head>    
+</html>

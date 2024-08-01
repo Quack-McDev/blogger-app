@@ -1,0 +1,19 @@
+<%-include("partials/header.ejs")%>
+<div class="container text-center header-container">
+    <div class="row justify-content-center" id="header-space">
+        <div id="header-stripe"></div>
+        <div id="heading-wrapper" class="col-4"><h1>Submit New Post</h1></div>
+    </div>
+</div>
+<div class="container justify-content-center text-center post-container">
+    <div class="row justify-content-center">
+        <div class="">
+            <form action = "/new-post" method="post">
+                <textarea id ="bPost" name ="bPost" placeholder="Text goes here..."></textarea>
+                <br>
+                <input type="submit" class="btn-primary btn">
+            </form>
+        </div>
+    </div>
+</div>
+<%-include("partials/footer.ejs")%>
